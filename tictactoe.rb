@@ -1,6 +1,6 @@
 class Game
 
-    attr_accessor :player1, :player2, :playerTP,  :turn_typed
+    attr_accessor :player1, :player2, :playerTP, :turn_typed
 
 
 
@@ -10,7 +10,7 @@ class Game
      alpha_found = nil
      num_found = nil
      while (alpha_found == nil || num_found == nil)
-       puts "saisissez une lettre, majuscule (A,B,ou C) , un nombre (1, 2 ou 3)"
+       puts "#{@playerTP}, saisissez une lettre, majuscule (A,B,ou C) , un nombre (1, 2 ou 3)"
        print "->"
        turn_typed = gets.chomp
 
@@ -212,9 +212,11 @@ def players_entry(playerTP,player1, state1, player2, state2)
      @player2 = player2
      puts " "
    end
-   puts "Status TP = To play, PL = Played, Wo = Won"
-   puts "Hey!! Here will begin the game with #{@player1} (status #{@state1}) and #{@player2} (status #{@state2})  !! ) "
+   puts "- - - - ->>>   Status TP = To play, PL = Played, Wo = Won"
+   puts ""
+   puts "*** Hey!! Here will begin the game with    #{@player1} (status #{@state1}) and    #{@player2} (status #{@state2})  !! ) ***"
 
+   playerTP = @player1
    @playerTP = playerTP
    #print "#{@playerTP},"
    return @playerTP
@@ -226,25 +228,12 @@ end
 
 the_board = Board.new(@board_array,@line_dep)
 the_player= Players.new(@playerTP, @player1, @state1, @player2, @state2)
-#the_player= Players.new
 
 the_player.players_entry(@playerTP, @player1, @state1, @player2, @state2)
+
 the_game  = Game.new
 
 the_game.turn_verification(@turn_typed)
 the_shoot = BoardCase.new
 the_board.board_alim
 the_shoot.case_played(@board_case, @board_array, @turn_typed)
-
-#turn_verification(@turn_typed)
-
-
-#big_tree = Orange_tree.new(0, 0)
-#puts big_tree.one_year_passes(5)
-#turn_
-#place_it((define_player))
-
-#big_tree.compte_oranges
-#1.times do
-#  big_tree.pick_an_orange
-#end
