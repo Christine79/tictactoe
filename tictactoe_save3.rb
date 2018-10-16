@@ -1,21 +1,26 @@
 class Game
 
-    attr_accessor :player1, :player2, :playerTP,  :turn_typed
+
+    def initialize(playerTP, turn_typed)
+       @playerTP = @player1
+
+     end
 
 #verification de la saisie du tour joué
 
    def turn_verification(turn_typed)
+     puts "#{@playerTP}, saisissez: une lettre et  un nombre:"
+     turn_typed = gets.chomp
      alpha_found = nil
      num_found = nil
      while (alpha_found == nil || num_found == nil)
-       puts "#{@playerTP}, saisissez une lettre, majuscule (A,B,ou C) , un nombre (1, 2 ou 3)"
-       print "->"
-       turn_typed = gets.chomp
-
         l = turn_typed[0]
         n = turn_typed[1]
         alpha_found = /[A-D]/.match(l)
         num_found = /[0-4]/.match(n)
+        puts "#{@playerTP}, saisissez à nouveau: une lettre, un nombre:"
+        print "->"
+        turn_typed = gets.chomp
      end
 
 
@@ -38,31 +43,34 @@ class Game
 end #end class
 class Board
 
-  attr_accessor :board_array, :line_dep
-
-
-      def initialize(board_array, line_dep)
-
-        @board_array = board_array
-        @line_dep = line_dep
-       end
+  attr_accessor :board_array
 
   def board_alim
-    board_array = Array.new
-    board_array = [["|_|_|_|"],["|_|_|_|"],["|_|_|_|"]]
-    @board_array = board_array
+    @board_array = Array.new
+    @board_array = [["|_|_|_|"],["|_|_|_|"],["|_|_|_|"]]
 
-    line_dep = " _____"
-    @line_dep = line_dep
+#    lng = 3
+#    i = 0
+#    until i > lng  do
+#      board_array << "."
+#      i +=1
+#    end
+    #@board_array = board_array
+    @line_dep = " _____"
 
      j = 0
-
-    puts line_dep
-    board_array.each do |b|
+#    7.times do
+#      @board_array <<  " "
+#    end
+    puts @line_dep
+    @board_array.each do |b|
         puts b
 
     end
 
+#    @board_array.each do |a|
+#      puts a
+#    end
   end
 
 
@@ -72,20 +80,22 @@ end
 
 class BoardCase
 
-  attr_accessor :turn_typed, :board_array, :playerTP, :line_dep, :player1, :player2
+  attr_accessor :turn_typed
 
+  def initialize(turn_typed)
+     @turn_typed = turn_typed
+   end
 
 #  affichage du tour joué
 
-  def case_played(board_case, board_array, turn_typed)
+  def case_played(turn_typed)
 
-    puts "player TP  #{@playerTP}"
+    puts "player TP #{@playerTP}"
     puts "player 1   #{@player1}"
     puts "player 2   #{@player2}"
 
-    @playerTP = "kiki"
-    if @playerTP == "kiki"
-      puts "e passe"
+
+    if @playerTP == @player1
       if @turn_typed == "A1"
          @board_array == [["|x|_|_|"],["|_|_|_|"],["|_|_|_|"]]
        else
@@ -93,7 +103,6 @@ class BoardCase
             @board_array == [["|_|x|_|"],["|_|_|_|"],["|_|_|_|"]]
          else
             if @turn_typed == "A3"
-              puts "je passe A3"
                @board_array == [["|_|_|x|"],["|_|_|_|"],["|_|_|_|"]]
             else
                if @turn_typed == "B1"
@@ -159,40 +168,36 @@ end
 end
 end
     end
-  end
 
-#    @board_array = board_array
     puts @line_dep
-    @line_dep = " _____"
-
-#      @board_array.each do |b|
+    puts @board_array
+#    @board_array.each do |b|
 #        puts b
 #    end
-
 
     if @playerTP = @player1
        @playerTP = @player2
     else
        @playerTP = @player1
     end
-puts
-#    return @board_array
+
+
+  end
 end
 
 
 
 class Players
 
-  attr_accessor :playerTP, :player1, :state1, :player2, :state2
+  attr_accessor :player1, :state1, :player2, :state2
 
-  def initialize(playerTP, player1, state1, player2, state2)
+  def initialize(player1, state1, player2, state2)
      state1 = "TP"
      state2 = "TP"
      @player1 = player1
      @player2 = player2
      @state1  = state1
      @state2  = state2
-     @playerTP = playerTP
    end
 
 
@@ -210,7 +215,7 @@ def players_entry(player1, state1, player2, state2)
    puts "Status TP = To play, PL = Played, Wo = Won"
    puts "Hey!! Here will begin the game with #{@player1} (status #{@state1}) and #{@player2} (status #{@state2})  !! ) "
 
-#   return @player1
+   return @player1
    return @player2
  end
 
@@ -220,14 +225,14 @@ def players_entry(player1, state1, player2, state2)
 
 end
 
-the_game  = Game.new
-the_board = Board.new(@board_array,@line_dep)
-the_player= Players.new(@playeTP, @player1, @state1, @player2, @state2)
+the_game  = Game.new(@playerTP, @turn_typed)
+the_board = Board.new
+the_player= Players.new(@player1, @state1, @player2, @state2)
 puts the_player.players_entry(@player1, @state1, @player2, @state2)
-the_party = Players.new("", "",  "", "", "")
-the_shoot = BoardCase.new
+the_party = Players.new("", "",  "", "")
+the_shoot = BoardCase.new(@turn_typed)
 the_game.turn_verification(@turn_typed)
-the_shoot.case_played(@board_case, @board_array, @turn_typed)
+the_shoot.case_played(@turn_typed)
 the_board.board_alim
 
 #turn_verification(@turn_typed)
