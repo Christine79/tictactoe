@@ -2,11 +2,6 @@ class Game
 
     attr_accessor :player1, :player2, :playerTP,  :turn_typed
 
-    def initialize(player1, player2, playerTP)
-      @player1 = player1
-      @player2 = player2
-      @palyerTP = playerTP
-    end
 
 
 #verification de la saisie du tour joué
@@ -15,7 +10,7 @@ class Game
      alpha_found = nil
      num_found = nil
      while (alpha_found == nil || num_found == nil)
-       puts "#{@playerTP}, saisissez une lettre, majuscule (A,B,ou C) , un nombre (1, 2 ou 3)"
+       puts "saisissez une lettre, majuscule (A,B,ou C) , un nombre (1, 2 ou 3)"
        print "->"
        turn_typed = gets.chomp
 
@@ -27,6 +22,7 @@ class Game
 
 
      @turn_typed = turn_typed
+     puts ""
      puts "turn_typed: " + turn_typed
       if @playerTP == @player1
         @playerTP = @player2
@@ -88,7 +84,8 @@ class BoardCase
 #  affichage du tour joué
 
   def case_played(board_case, board_array, turn_typed)
-    puts "dasn boardCase:"
+    puts ""
+    puts "dans boardCase:"
     puts "player TP : #{@playerTP}"
     puts "player 1  : #{@player1}"
     puts "player 2  : #{@player2}"
@@ -192,7 +189,6 @@ end
 class Players
 
   attr_accessor :playerTP, :player1, :state1, :player2, :state2
-
   def initialize(playerTP, player1, state1, player2, state2)
     state1 = "TP"
     state2 = "TP"
@@ -219,7 +215,8 @@ def players_entry(playerTP,player1, state1, player2, state2)
    puts "Status TP = To play, PL = Played, Wo = Won"
    puts "Hey!! Here will begin the game with #{@player1} (status #{@state1}) and #{@player2} (status #{@state2})  !! ) "
 
-#   return @player1
+   @playerTP = playerTP
+   #print "#{@playerTP},"
    return @playerTP
  end
 
@@ -229,8 +226,10 @@ end
 
 the_board = Board.new(@board_array,@line_dep)
 the_player= Players.new(@playerTP, @player1, @state1, @player2, @state2)
-puts the_player.players_entry(@playerTP, @player1, @state1, @player2, @state2)
-the_game  = Game.new(@player1, @player2, @playerTP)
+#the_player= Players.new
+
+the_player.players_entry(@playerTP, @player1, @state1, @player2, @state2)
+the_game  = Game.new
 
 the_game.turn_verification(@turn_typed)
 the_shoot = BoardCase.new
