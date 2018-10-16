@@ -14,9 +14,15 @@ class Game
          @player2 = player2
          puts " "
        end
+       state1 = "TP"
+       state2 = "TP"
+       @state2 = state2
+       @state1 = state1
+
        puts "- - - - ->>>   Status TP = To play, PL = Played, Wo = Won"
        puts ""
        puts "*** Hey!! Here will begin the game with    #{@player1} (status #{@state1}) and    #{@player2} (status #{@state2})  !! ) ***"
+       puts ""
 
        playerTP = @player1
        @playerTP = playerTP
