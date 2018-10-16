@@ -2,6 +2,28 @@ class Game
 
     attr_accessor :player1, :player2, :playerTP, :turn_typed
 
+    def players_entry(playerTP,player1, state1, player2, state2)
+       while player1 == nil
+         print  "Joueur 1, saisissez votre pseudo:"
+         player1 = gets.chomp
+         @player1 = player1
+       end
+       while player2 == nil
+         print "Joueur 2, saisissez votre pseudo:"
+         player2 = gets.chomp
+         @player2 = player2
+         puts " "
+       end
+       puts "- - - - ->>>   Status TP = To play, PL = Played, Wo = Won"
+       puts ""
+       puts "*** Hey!! Here will begin the game with    #{@player1} (status #{@state1}) and    #{@player2} (status #{@state2})  !! ) ***"
+
+       playerTP = @player1
+       @playerTP = playerTP
+       #print "#{@playerTP},"
+       return @playerTP
+     end
+
 
 
 #verification de la saisie du tour joué
@@ -42,6 +64,7 @@ class Game
    end
 
 end #end class
+
 class Board
 
   attr_accessor :board_array, :line_dep
@@ -89,6 +112,7 @@ class BoardCase
     puts "player TP : #{@playerTP}"
     puts "player 1  : #{@player1}"
     puts "player 2  : #{@player2}"
+    puts "turn_typed: #{turn_typed}"
 
     if @playerTP == @player1
       if @turn_typed == "A1"
@@ -200,28 +224,6 @@ class Players
    end
 
 
-def players_entry(playerTP,player1, state1, player2, state2)
-   while player1 == nil
-     print  "Joueur 1, saisissez votre pseudo:"
-     player1 = gets.chomp
-     @player1 = player1
-   end
-   while player2 == nil
-     print "Joueur 2, saisissez votre pseudo:"
-     player2 = gets.chomp
-     @player2 = player2
-     puts " "
-   end
-   puts "- - - - ->>>   Status TP = To play, PL = Played, Wo = Won"
-   puts ""
-   puts "*** Hey!! Here will begin the game with    #{@player1} (status #{@state1}) and    #{@player2} (status #{@state2})  !! ) ***"
-
-   playerTP = @player1
-   @playerTP = playerTP
-   #print "#{@playerTP},"
-   return @playerTP
- end
-
 
 end
 
@@ -229,9 +231,10 @@ end
 the_board = Board.new(@board_array,@line_dep)
 the_player= Players.new(@playerTP, @player1, @state1, @player2, @state2)
 
-the_player.players_entry(@playerTP, @player1, @state1, @player2, @state2)
-
 the_game  = Game.new
+
+the_game.players_entry(@playerTP, @player1, @state1, @player2, @state2)
+
 
 the_game.turn_verification(@turn_typed)
 the_shoot = BoardCase.new
