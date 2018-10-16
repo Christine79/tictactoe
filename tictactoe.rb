@@ -46,11 +46,7 @@ class Game
      @turn_typed = turn_typed
      puts ""
      puts "turn_typed: " + turn_typed
-      if @playerTP == @player1
-        @playerTP = @player2
-     else
-        @playerTP = @player1
-     end
+    @playerTP = @player1
 
      puts "dans game:"
      puts "here player TP: #{@playerTP}"
